@@ -13,5 +13,15 @@ def Conversor_Dias_Horas(Dias):
   Resultado=int(Dias)*24
   return f" {Dias} dias son {Resultado} horas"
 
+@app.route("/Minutos/<Dias>")
+def Conversor_Dias_Minutos(Dias):
+  Resultado=int(Dias)*24*60
+  return f" {Dias} dias son {Resultado} minutos"
+
+@app.route("/Segundos/<Dias>")
+def Conversor_Dias_Segundos(Dias):
+  Resultado=int(Dias)*24*60*60
+  return f" {Dias} dias son {Resultado} segundos"
+
 if __name__=="__main__":
   app.run()
