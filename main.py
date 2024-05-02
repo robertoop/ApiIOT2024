@@ -1,27 +1,30 @@
-# -*- coding: utf-8 -*-
+
+import pandas as pd
 from flask import Flask
 
 app=Flask(__name__)
 
+base=pd.read_excel("BasePokemon.xlsx")
+
 @app.route("/")
-def Presentacion():
-  Mensaje="Esta es una api que te convierte Dias en Horas, Minutos o Segundos"
-  return Mensaje
+def Principal():
+  return "Esta es una Api que te muestra pokemons"
 
-@app.route("/Horas/<Dias>")
-def Conversor_Dias_Horas(Dias):
-  Resultado=int(Dias)*24
-  return f" {Dias} dias son {Resultado} horas"
+@app.route("/Por_Numero/<Numero>")
+def PorNumero(Numero):
+  fila=base[base["Numero"]==Numero]
+  respuesta=f"El pokemon {Numero} es {fila.loc[:,'Nombre']}"
+  return respuesta
 
-@app.route("/Minutos/<Dias>")
-def Conversor_Dias_Minutos(Dias):
-  Resultado=int(Dias)*24*60
-  return f" {Dias} dias son {Resultado} minutos"
+@app.route("/Por_Tipo/<Tipo>")
+def PorTipo(Tipo):
+  resultados=base[base["Tipo"]==Tipo]
+  return resultados
 
-@app.route("/Segundos/<Dias>")
-def Conversor_Dias_Segundos(Dias):
-  Resultado=int(Dias)*24*60*60
-  return f" {Dias} dias son {Resultado} segundos"
+@app.route("/Por_Peso/<Peso1>/<Peso2>")
+def PorPeso(Peso1,Peso2):
+  resultados=base[(base["Peso"]>Peso1) & (base["Peso"]<Peso2) ]
+  return resultados
 
 if __name__=="__main__":
   app.run()
