@@ -1,7 +1,7 @@
 
 import pandas as pd
 from flask import Flask
-from flask import jsonfy
+from flask import jsonify
 
 app=Flask(__name__)
 
@@ -29,7 +29,7 @@ def PorPeso(Peso1,Peso2):
   Peso1=float(Peso1)
   Peso2=float(Peso2)
   resultados=base[(base["Peso"]>Peso1) & (base["Peso"]<Peso2) ]
-  resultados=jsonfy(resultados)
+  resultados=jsonify(resultados)
   
   return resultados
 
